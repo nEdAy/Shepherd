@@ -1,0 +1,45 @@
+basePath: '{{.BasePath}}'
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /v1/registerOrLogin/:
+    post:
+      consumes:
+        - application/json
+      description: register or login user by mobile,password,smsCode
+      parameters:
+        - description: Mobile
+          in: query
+          name: mobile
+          required: true
+          type: string
+        - description: Password
+          in: query
+          name: password
+          type: string
+        - description: SmsCode
+          in: query
+          name: smsCode
+          type: string
+        - description: InviteCode
+          in: query
+          name: inviteCode
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"time": 1561513181, "code": 200, "msg": "成功", "data" : {}}'
+          schema:
+            type: string
+        "400":
+          description: '{"time": 1561513181, "code": 400, "msg": "msg"}'
+          schema:
+            type: string
+      summary: 用户注册 用户登录(密码) 用户登录（短信验证码）
+swagger: "2.0"
