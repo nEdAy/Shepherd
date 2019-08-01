@@ -4,7 +4,7 @@ import "github.com/jinzhu/gorm"
 
 // CreditHistory表
 type CreditHistory struct {
-	Model
+	gorm.Model
 	User    User   `gorm:"ForeignKey:UserId;AssociationForeignKey:Id"`
 	UserId  int    `gorm:"column:user_id" json:"user_id"`
 	Value   int    `gorm:"column:value" json:"value"`

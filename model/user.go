@@ -6,7 +6,7 @@ import (
 
 // User 用户表
 type User struct {
-	Model
+	gorm.Model
 	Mobile   string `gorm:"column:mobile" json:"mobile"`
 	Password string `gorm:"column:password" json:"-"`
 	Nickname string `gorm:"column:nickname" json:"nickname"`

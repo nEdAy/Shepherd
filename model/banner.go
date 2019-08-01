@@ -6,7 +6,7 @@ import (
 
 // Banner表
 type Banner struct {
-	Model
+	gorm.Model
 	Title   string `gorm:"column:title" json:"title"`
 	Picture string `gorm:"column:picture" json:"picture"`
 	Url     string `gorm:"column:url" json:"url"`

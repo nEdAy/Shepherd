@@ -13,13 +13,6 @@ import (
 // 数据库操作对象
 var DB *gorm.DB
 
-type Model struct {
-	Id         uint  `gorm:"column:id;primary_key" json:"id"`
-	CreateTime int64 `gorm:"column:create_time" json:"create_time,omitempty"`
-	ModifyTime int64 `gorm:"column:modify_time" json:"modify_time,omitempty"`
-	DeleteTime int64 `gorm:"column:delete_time" json:"delete_time,omitempty"`
-}
-
 // 初始化数据库
 func Setup() {
 	// 连接数据库
@@ -46,14 +39,10 @@ func Setup() {
 		// debug 模式
 		DB = DB.Debug()
 	}
-	// DB.Callback().Create().Replace("gorm:create_time", updateTimeStampForCreateCallback)
-	// DB.Callback().Update().Replace("gorm:modify_time", updateTimeStampForUpdateCallback)
-	// DB.Callback().Delete().Replace("gorm:delete_time", deleteCallback)
 	// 连接池最大连接数
 	DB.DB().SetMaxIdleConns(config.Database.MaxIdleConns)
 	// 默认打开连接数
 	DB.DB().SetMaxOpenConns(config.Database.MaxOpenConns)
-
 	// 开启协程ping MySQL数据库查看连接状态
 	go func() {
 		for {
@@ -73,55 +62,4 @@ func Close() {
 	if DB != nil {
 		defer DB.Close()
 	}
-}
-
-func updateTimeStampForCreateCallback(scope *gorm.Scope) {
-	if !scope.HasError() {
-		nowTime := time.Now().Unix()
-		if createTimeField, ok := scope.FieldByName("create_time"); ok {
-			if createTimeField.IsBlank {
-				_ = createTimeField.Set(nowTime)
-			}
-		}
-
-		if modifyTimeField, ok := scope.FieldByName("modify_time"); ok {
-			if modifyTimeField.IsBlank {
-				_ = modifyTimeField.Set(nowTime)
-			}
-		}
-	}
-}
-
-func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
-	if _, ok := scope.Get("gorm:modify_time"); !ok {
-		_ = scope.SetColumn("modify_time", time.Now().Unix())
-	}
-}
-
-func deleteCallback(scope *gorm.Scope) {
-	if !scope.HasError() {
-		deletedOnField, hasDeletedOnField := scope.FieldByName("delete_time")
-		if !scope.Search.Unscoped && hasDeletedOnField {
-			scope.Raw(fmt.Sprintf(
-				"UPDATE %v SET %v=%v%v%v",
-				scope.QuotedTableName(),
-				scope.Quote(deletedOnField.DBName),
-				scope.AddToVars(time.Now().Unix()),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-			)).Exec()
-		} else {
-			scope.Raw(fmt.Sprintf(
-				"DELETE FROM %v%v%v",
-				scope.QuotedTableName(),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-			)).Exec()
-		}
-	}
-}
-
-func addExtraSpaceIfExist(str string) string {
-	if str != "" {
-		return " " + str
-	}
-	return ""
 }
