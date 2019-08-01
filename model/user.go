@@ -55,7 +55,7 @@ func GetAllUser() (users []*User, err error) {
 // UpdateUser updates User by Id and returns error if the record to be updated doesn't exist
 func UpdateUserById(user *User) (err error) {
 	// ascertain id exists in the database
-	if err = DB.First(&user, user.Id).Error; err == nil {
+	if err = DB.First(&user, user.ID).Error; err == nil {
 		err = DB.Save(user).Error
 	}
 	return err
