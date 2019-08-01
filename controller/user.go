@@ -81,7 +81,7 @@ func RegisterOrLogin(c *gin.Context) {
 }
 
 func responseUserWithToken(c *gin.Context, user *model.User) {
-	token, err := jwt.CreateToken(user.Id)
+	token, err := jwt.CreateToken(user.ID)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 		return
