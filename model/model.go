@@ -26,8 +26,6 @@ func Setup() {
 		panic(err.Error())
 	}
 
-	defer db.Close()
-
 	// 全局禁用表名复数
 	db.SingularTable(true)
 
