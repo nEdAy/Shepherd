@@ -2,24 +2,41 @@ package model
 
 import "github.com/jinzhu/gorm"
 
-// CreditHistory表
 type CreditHistory struct {
 	gorm.Model
-	User    User   `gorm:"ForeignKey:UserId;AssociationForeignKey:Id"`
-	UserId  int    `gorm:"column:user_id" json:"user_id"`
-	Value   int    `gorm:"column:value" json:"value"`
-	Message string `gorm:"column:message" json:"message"`
+	UserId  uint
+	Change  int
+	Credit  int
+	Message string
 }
 
-// TableName 返回credit_history表名称
-func (CreditHistory) TableName() string {
-	return gorm.DefaultTableNameHandler(nil, "credit_history")
-}
-
-// GetAllCreditHistory retrieves all CreditHistory matches certain condition. Returns empty list if no records exist
-func GetAllCreditHistory() (creditHistories []*CreditHistory, err error) {
-	if err = DB.Order("create_time desc").Find(&creditHistories).Error; err == nil {
+func GetCreditHistoriesByUserId(userId uint) (creditHistories []*CreditHistory, err error) {
+	if err = db.Where("user_id = ?", userId).Order("create_time desc").Find(&creditHistories).Error; err == nil {
 		return creditHistories, nil
 	}
 	return nil, err
+}
+
+func ModifyCreditHistory(userId uint, change int, message string) (*CreditHistory, error) {
+	tx := db.Begin()
+	// 根据userId（主键）查找
+	user := User{}
+	if err := tx.First(&user, userId).Error; err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	// 更新User.credit
+	credit := user.Credit + change
+	if err := tx.Model(&user).Select("credit").Updates(map[string]interface{}{"credit": credit}).Error; err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	// 创建积分历史记录
+	creditHistory := CreditHistory{UserId: userId, Change: change, Credit: credit, Message: message}
+	if err := tx.Create(creditHistory).Error; err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+	tx.Commit()
+	return &creditHistory, nil
 }

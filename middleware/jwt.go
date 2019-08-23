@@ -20,6 +20,12 @@ func JWT() gin.HandlerFunc {
 				c.Abort()
 				return
 			} else {
+				userId := claims.UserId
+				if userId < 0 {
+					response.ErrorWithMsg(c, "Token异常，用户不存在")
+					c.Abort()
+					return
+				}
 				c.Set(jwt.KeyUserId, claims.UserId)
 				c.Next()
 			}

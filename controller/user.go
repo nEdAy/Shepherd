@@ -92,16 +92,12 @@ func responseUserWithToken(c *gin.Context, user *model.User) {
 
 // @Summary 获取用户
 func GetUser(c *gin.Context) {
-	userId, ok := c.Get(jwt.KeyUserId)
-	if ok {
-		user, err := model.GetUserById(userId.(uint))
-		if err != nil {
-			response.ErrorWithMsg(c, err.Error())
-		} else {
-			response.JsonWithData(c, user)
-		}
+	userId, _ := c.Get(jwt.KeyUserId)
+	user, err := model.GetUserById(userId.(uint))
+	if err != nil {
+		response.ErrorWithMsg(c, err.Error())
 	} else {
-		response.ErrorWithMsg(c, "Token异常，用户不存在")
+		response.JsonWithData(c, user)
 	}
 }
 

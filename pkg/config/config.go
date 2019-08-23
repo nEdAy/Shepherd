@@ -83,7 +83,6 @@ func loadDatabase() {
 	Database.Host = sec.Key("HOST").String()
 	Database.Port = sec.Key("PORT").MustInt(3306)
 	Database.Name = sec.Key("NAME").String()
-	Database.TablePrefix = sec.Key("TABLE_PREFIX").String()
 	Database.MaxIdleConns = sec.Key("MAX_IDLE_CONNS").MustInt(64)
 	Database.MaxOpenConns = sec.Key("MAX_OPEN_CONNS").MustInt(24)
 	Database.PingInterval = time.Duration(sec.Key("PING_INTERVAL").MustInt(30)) * time.Second
@@ -159,7 +158,6 @@ type database struct {
 	Host         string
 	Port         int
 	Name         string
-	TablePrefix  string
 	MaxIdleConns int
 	MaxOpenConns int
 	PingInterval time.Duration
