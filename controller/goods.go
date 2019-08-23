@@ -30,7 +30,7 @@ func GetRankingList(c *gin.Context) {
 type nineOpGoodsList struct {
 	PageSize string `form:"pageSize" binding:"required"`
 	PageId   string `form:"pageId" binding:"required"`
-	Cid      string `form:"cid" binding:"required"`
+	NineCid  string `form:"nineCid" binding:"required"`
 }
 
 func GetNineOpGoodsList(c *gin.Context) {
@@ -47,7 +47,7 @@ func GetNineOpGoodsList(c *gin.Context) {
 			"version":  "v1.0.2",
 			"pageSize": nineOpGoodsList.PageSize,
 			"pageId":   nineOpGoodsList.PageId,
-			"cid":      nineOpGoodsList.Cid,
+			"nineCid":  nineOpGoodsList.NineCid,
 		}})
 }
 
