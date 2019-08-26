@@ -1,10 +1,10 @@
 package router
 
 import (
-	"Shepherd/controller"
-	_ "Shepherd/docs"
-	"Shepherd/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/controller"
+	_ "github.com/nEdAy/Shepherd/docs"
+	"github.com/nEdAy/Shepherd/middleware"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )

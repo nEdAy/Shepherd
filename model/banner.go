@@ -6,10 +6,10 @@ import (
 
 type Banner struct {
 	gorm.Model
-	Index   uint
-	Title   string
-	Picture string
-	Url     string
+	Index   uint   `json:"index"`
+	Title   string `json:"title"`
+	Picture string `json:"picture"`
+	Url     string `json:"url"`
 }
 
 func GetAllBanner() (banners []*Banner, err error) {

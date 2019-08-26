@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"Shepherd/model"
-	"Shepherd/pkg/jwt"
-	"Shepherd/pkg/response"
-	"Shepherd/pkg/scrypt"
-	"Shepherd/pkg/sms"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/model"
+	"github.com/nEdAy/Shepherd/pkg/jwt"
+	"github.com/nEdAy/Shepherd/pkg/response"
+	"github.com/nEdAy/Shepherd/pkg/scrypt"
+	"github.com/nEdAy/Shepherd/pkg/sms"
 )
 
 // Binding from RegisterOrLogin JSON

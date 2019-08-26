@@ -4,10 +4,10 @@ import "github.com/jinzhu/gorm"
 
 type CreditHistory struct {
 	gorm.Model
-	UserId  uint
-	Change  int
-	Credit  int
-	Message string
+	UserId  uint   `json:"userId"`
+	Change  int    `json:"change"`
+	Credit  int    `json:"credit"`
+	Message string `json:"message"`
 }
 
 func GetCreditHistoriesByUserId(userId uint) (creditHistories []*CreditHistory, err error) {

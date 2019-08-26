@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"Shepherd/model"
-	"Shepherd/pkg/jwt"
-	"Shepherd/pkg/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/model"
+	"github.com/nEdAy/Shepherd/pkg/jwt"
+	"github.com/nEdAy/Shepherd/pkg/response"
 	"math/rand"
 	"time"
 )

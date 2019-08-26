@@ -1,8 +1,8 @@
 package jwt
 
 import (
-	"Shepherd/pkg/config"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/nEdAy/Shepherd/pkg/config"
 	"github.com/pkg/errors"
 	"time"
 )

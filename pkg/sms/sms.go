@@ -1,7 +1,7 @@
 package sms
 
 import (
-	"Shepherd/pkg/config"
+	"github.com/nEdAy/Shepherd/pkg/config"
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
 	"gopkg.in/resty.v1"

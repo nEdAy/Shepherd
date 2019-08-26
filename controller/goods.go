@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"Shepherd/pkg/response"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/pkg/response"
 )
 
 type rankingList struct {

@@ -1,8 +1,8 @@
 package model
 
 import (
-	"Shepherd/pkg/config"
 	"fmt"
+	"github.com/nEdAy/Shepherd/pkg/config"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"

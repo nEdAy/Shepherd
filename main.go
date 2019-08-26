@@ -1,42 +1,36 @@
 package main
 
 import (
-	"Shepherd/model"
-	"Shepherd/pkg/config"
-	"Shepherd/pkg/logger"
-	"Shepherd/pkg/redis"
-	"Shepherd/router"
 	"context"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog/log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/model"
+	"github.com/nEdAy/Shepherd/pkg/config"
+	"github.com/nEdAy/Shepherd/pkg/logger"
+	"github.com/nEdAy/Shepherd/pkg/redis"
+	"github.com/nEdAy/Shepherd/router"
+	"github.com/rs/zerolog/log"
 )
 
 func init() {
-	// 初始化Logger
 	logger.Setup()
-	// 初始化Config
 	config.Setup()
-	// 初始化Database
 	model.Setup()
-	// 初始化Redis
 	redis.Setup()
-	// 初始化Router
 	router.Setup()
 }
 
 func main() {
 	initGin()
-	// 配置并启动Gin Server
 	startGinServer()
 }
 
 func initGin() {
-	// 配置Gin
 	gin.SetMode(config.App.RunMode)
 	// Disable Console Color, you don't need console color when writing the logs to file.
 	// gin.DisableConsoleColor()

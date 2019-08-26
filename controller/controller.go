@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"Shepherd/pkg/config"
-	"Shepherd/pkg/redis"
-	"Shepherd/pkg/response"
 	"bytes"
 	"crypto/md5"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/pkg/config"
+	"github.com/nEdAy/Shepherd/pkg/redis"
+	"github.com/nEdAy/Shepherd/pkg/response"
 	"gopkg.in/resty.v1"
 	"net/http"
 	"sort"

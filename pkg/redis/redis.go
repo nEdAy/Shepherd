@@ -1,10 +1,10 @@
 package redis
 
 import (
-	"Shepherd/pkg/config"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/nEdAy/Shepherd/pkg/config"
 	"time"
 
 	"github.com/gomodule/redigo/redis"

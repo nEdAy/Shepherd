@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"Shepherd/pkg/jwt"
-	"Shepherd/pkg/response"
 	"github.com/gin-gonic/gin"
+	"github.com/nEdAy/Shepherd/pkg/jwt"
+	"github.com/nEdAy/Shepherd/pkg/response"
 )
 
 func JWT() gin.HandlerFunc {
