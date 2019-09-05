@@ -10,6 +10,14 @@ type CreditHistory struct {
 	Message string `json:"message"`
 }
 
+type GameTimes struct {
+	gorm.Model
+	UserId  uint   `json:"userId"`
+	Change  int    `json:"change"`
+	Credit  int    `json:"credit"`
+	Message string `json:"message"`
+}
+
 func GetCreditHistoriesByUserId(userId uint) (creditHistories []*CreditHistory, err error) {
 	if err = db.Where("user_id = ?", userId).Order("create_time desc").Find(&creditHistories).Error; err == nil {
 		return creditHistories, nil

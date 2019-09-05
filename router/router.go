@@ -5,7 +5,7 @@ import (
 	"github.com/nEdAy/Shepherd/controller"
 	_ "github.com/nEdAy/Shepherd/docs"
 	"github.com/nEdAy/Shepherd/middleware"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
@@ -30,9 +30,10 @@ func Setup() {
 		user := v1.Group("/user", middleware.JWT())
 		{
 			// 获取用户
-			user.GET("/", controller.GetUser)
-			// 删除用户
-			// user.DELETE("/:id", controller.DelUser)
+			user.GET("/:id", controller.GetUserById)
+			// 获取用户积分历史记录
+			user.GET("/creditHistory/:userId", controller.GetCreditHistoriesByUserId)
+
 		}
 		// Banner相关API
 		banner := v1.Group("/banner")

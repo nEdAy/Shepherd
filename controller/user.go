@@ -91,8 +91,13 @@ func responseUserWithToken(c *gin.Context, user *model.User) {
 }
 
 // @Summary 获取用户
-func GetUser(c *gin.Context) {
+func GetUserById(c *gin.Context) {
 	userId, _ := c.Get(jwt.KeyUserId)
+	id := c.Param("id")
+	if userId != id {
+		response.ErrorWithMsg(c, "参数与Token不匹配")
+		return
+	}
 	user, err := model.GetUserById(userId.(uint))
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
@@ -100,17 +105,6 @@ func GetUser(c *gin.Context) {
 		response.JsonWithData(c, user)
 	}
 }
-
-// @Summary 获取用户
-//func GetUsers(c *gin.Context) {
-//	list := make([]*model.User, 0)
-//	list, err := model.GetAllUser()
-//	if err != nil {
-//		helper.ErrorWithMsg(c, err.Error())
-//		return
-//	}
-//	c.JSON(http.StatusOK, list)
-//}
 
 // @Summary 删除用户
 //func DelUser(c *gin.Context) {
