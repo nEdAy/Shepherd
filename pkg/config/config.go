@@ -22,9 +22,9 @@ var (
 
 func Setup() {
 	var err error
-	Config, err = ini.Load("build/app.ini")
+	Config, err = ini.Load("./build/app.ini")
 	if err != nil {
-		log.Fatal().Msgf("Fail to parse 'build/app.ini': %v", err)
+		log.Fatal().Msgf("Fail to parse './build/app.ini': %v", err)
 	}
 	Config.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	loadApp()
@@ -37,14 +37,14 @@ func loadApp() {
 	}
 	App.RunMode = sec.Key("RUN_MODE").In("debug", []string{"debug", "release"})
 	if App.RunMode == "debug" {
-		Config, err = ini.Load("build/debug.ini")
+		Config, err = ini.Load("./build/debug.ini")
 		if err != nil {
-			log.Fatal().Msgf("Fail to parse 'build/debug.ini': %v", err)
+			log.Fatal().Msgf("Fail to parse './build/debug.ini': %v", err)
 		}
 	} else if App.RunMode == "release" {
-		Config, err = ini.Load("build/release.ini")
+		Config, err = ini.Load("./build/release.ini")
 		if err != nil {
-			log.Fatal().Msgf("Fail to parse 'build/release.ini': %v", err)
+			log.Fatal().Msgf("Fail to parse './build/release.ini': %v", err)
 		}
 	} else {
 		log.Fatal().Msgf("Fail to parse Error RunMode")
