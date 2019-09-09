@@ -17,10 +17,10 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o Shepherd ./app/bulid
+RUN go build -o Shepherd .
 
 # Expose port 8443 to the outside world
 EXPOSE 8443
 
 # Command to run the executable
-CMD ["./bulid/Shepherd"]
+CMD ["Shepherd"]
