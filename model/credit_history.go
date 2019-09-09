@@ -18,12 +18,19 @@ type GameTimes struct {
 	Message string `json:"message"`
 }
 
-func GetCreditHistoriesByUserId(userId uint) (creditHistories []*CreditHistory, err error) {
-	if err = db.Where("user_id = ?", userId).Order("create_time desc").Find(&creditHistories).Error; err == nil {
+type CreditHistoriesPage struct {
+	CreditHistories []*CreditHistory `json:"list"`
+	TotalNum        uint             `json:"totalNum"`
+	PageId          int              `json:"pageId"`
+}
+
+/*func GetCreditHistoriesByUserId(userId uint, pageId string, pageNum uint) (creditHistoriesPage CreditHistoriesPage, err error) {
+	if err = db.Limit(pageNum).Where("user_id = ? AND id > ?", userId, pageId).Order("create_time desc").Find(&creditHistoriesPage.CreditHistories).Error; err == nil {
+		creditHistoriesPage.PageId = creditHistoriesPage.CreditHistories
 		return creditHistories, nil
 	}
 	return nil, err
-}
+}*/
 
 func ModifyCreditHistory(userId uint, change int, message string) (*CreditHistory, error) {
 	tx := db.Begin()

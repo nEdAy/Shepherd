@@ -11,19 +11,29 @@ import (
 	"github.com/nEdAy/Shepherd/pkg/response"
 )
 
+type creditHistoriesByUserId struct {
+	Id       uint   `form:"id" binding:"required"`
+	PageId   string `form:"pageId" binding:"required"`
+	TotalNum uint   `form:"totalNum" binding:"required"`
+}
+
 func GetCreditHistoriesByUserId(c *gin.Context) {
+	/*var creditHistoriesByUserId creditHistoriesByUserId
+	if err := c.ShouldBindQuery(&creditHistoriesByUserId); err != nil {
+		response.ErrorWithMsg(c, err.Error())
+		return
+	}
 	userId, _ := c.Get(jwt.KeyUserId)
-	id := c.Param("userId")
-	if userId != id {
+	if userId != creditHistoriesByUserId.Id {
 		response.ErrorWithMsg(c, "参数与Token不匹配")
 		return
 	}
-	creditHistories, err := model.GetCreditHistoriesByUserId(userId.(uint))
+	creditHistories, err := model.GetCreditHistoriesByUserId(userId.(uint), creditHistoriesByUserId.PageId, creditHistoriesByUserId.TotalNum)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 	} else {
 		response.JsonWithData(c, creditHistories)
-	}
+	}*/
 }
 
 func Shake(c *gin.Context) {
@@ -48,7 +58,7 @@ func Shake(c *gin.Context) {
 	}
 	message := fmt.Sprintf("每日摇一摇获得%d积分", change)
 	// 更新积分并创建积分记录
-	creditHistory, err := model.ModifyCreditHistory("SHAKE", userId.(uint), change, message)
+	creditHistory, err := model.ModifyCreditHistory(userId.(uint), change, message)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 	} else {
@@ -78,7 +88,7 @@ func SignIn(c *gin.Context) {
 	}
 	message := fmt.Sprintf("每日摇一摇获得%d积分", change)
 	// 更新积分并创建积分记录
-	creditHistory, err := model.ModifyCreditHistory("SHAKE", userId.(uint), change, message)
+	creditHistory, err := model.ModifyCreditHistory(userId.(uint), change, message)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 	} else {
