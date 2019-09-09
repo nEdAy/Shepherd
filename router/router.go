@@ -31,9 +31,11 @@ func Setup() {
 		{
 			// 获取用户
 			user.GET("/:id", controller.GetUserById)
+		}
+		creditHistory := v1.Group("/creditHistory", middleware.JWT())
+		{
 			// 获取用户积分历史记录
-			user.GET("/creditHistory/:userId", controller.GetCreditHistoriesByUserId)
-
+			creditHistory.GET("/:userId", controller.GetCreditHistoriesByUserId)
 		}
 		// Banner相关API
 		banner := v1.Group("/banner")
