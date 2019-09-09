@@ -5,7 +5,7 @@ FROM golang:latest as builder
 LABEL maintainer="nEdAy <shengsu15@gmail.com>"
 
 # Set the Current Working Directory inside the container
-WORKDIR /
+WORKDIR /app
 
 # Copy go mod and sum files
 COPY go.mod go.sum ./
