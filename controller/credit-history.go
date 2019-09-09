@@ -12,23 +12,23 @@ import (
 )
 
 type creditHistoriesByUserId struct {
-	Id       uint   `form:"id" binding:"required"`
 	PageId   string `form:"pageId" binding:"required"`
 	TotalNum uint   `form:"totalNum" binding:"required"`
 }
 
 func GetCreditHistoriesByUserId(c *gin.Context) {
-	/*var creditHistoriesByUserId creditHistoriesByUserId
+	var creditHistoriesByUserId creditHistoriesByUserId
 	if err := c.ShouldBindQuery(&creditHistoriesByUserId); err != nil {
 		response.ErrorWithMsg(c, err.Error())
 		return
 	}
 	userId, _ := c.Get(jwt.KeyUserId)
-	if userId != creditHistoriesByUserId.Id {
+	id := c.Param("userId")
+	if userId != id {
 		response.ErrorWithMsg(c, "参数与Token不匹配")
 		return
 	}
-	creditHistories, err := model.GetCreditHistoriesByUserId(userId.(uint), creditHistoriesByUserId.PageId, creditHistoriesByUserId.TotalNum)
+	/*creditHistories, err := model.GetCreditHistoriesByUserId(userId.(uint), creditHistoriesByUserId.PageId, creditHistoriesByUserId.TotalNum)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 	} else {
