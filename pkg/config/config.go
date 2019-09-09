@@ -28,13 +28,6 @@ func Setup() {
 	}
 	Config.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	loadApp()
-	loadServer()
-	loadPath()
-	loadDatabase()
-	loadDataoke()
-	loadWeChat()
-	loadRedis()
-	loadMob()
 }
 
 func loadApp() {
@@ -43,8 +36,30 @@ func loadApp() {
 		log.Fatal().Msgf("Fail to get section 'App': %v", err)
 	}
 	App.RunMode = sec.Key("RUN_MODE").In("debug", []string{"debug", "release"})
+	if App.RunMode == "debug" {
+		Config, err = ini.Load("build/debug.ini")
+		if err != nil {
+			log.Fatal().Msgf("Fail to parse 'build/debug.ini': %v", err)
+		}
+	} else if App.RunMode == "release" {
+		Config, err = ini.Load("build/release.ini")
+		if err != nil {
+			log.Fatal().Msgf("Fail to parse 'build/release.ini': %v", err)
+		}
+	} else {
+		log.Fatal().Msgf("Fail to parse Error RunMode")
+	}
+	Config.BlockMode = false // if false, only reading, speed up read operations about 50-70% faster
 	App.HmacSecret = sec.Key("Hmac_Secret").MustString("nEdAy")
 	App.HmacSecret = sec.Key("Password_Salt").MustString("nEdAy")
+
+	loadServer()
+	loadPath()
+	loadDatabase()
+	loadDataoke()
+	loadWeChat()
+	loadRedis()
+	loadMob()
 }
 
 func loadServer() {
